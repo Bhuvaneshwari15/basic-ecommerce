@@ -1,0 +1,35 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <!-- Search bar section -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="input-group mt-3">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search products...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" id="searchButton">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product cards section -->
+    <div class="row mt-4">
+        {% for product in products %}
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <img class="card-img-top" src="{{ product.imageURL }}" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">₹{{ product.price|floatformat:2 }}</p>
+                    <button data-product="{{ product.id }}" data-action="add" class="btn btn-outline-secondary btn-sm update-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

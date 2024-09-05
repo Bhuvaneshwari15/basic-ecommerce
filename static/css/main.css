@@ -1,0 +1,136 @@
+/* Bootstrap 4.5.2 CDN link */
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+/* Custom Styles */
+body {
+    background-color: hsl(0, 0%, 98%);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: hsl(0, 0%, 30%);
+}
+
+.box-element {
+    box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 1rem;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 200px;
+    box-shadow: -1px -3px 5px -2px rgba(214, 214, 214, 1);
+}
+
+.product {
+    border-radius: 0 0 4px 4px;
+}
+
+.bg-dark-custom {
+    background-color: #4f868c !important;
+}
+
+#cart-icon {
+    width: 35px;
+    display: inline-block;
+    margin-left: 25px;
+}
+
+#cart-total {
+    display: block;
+    text-align: center;
+    color: #fff;
+    background-color: red;
+    width: 20px;
+    height: 25px;
+    border-radius: 75%;
+    font-size: 14px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+/* Customize Bootstrap arrow icons */
+.bi-arrow-up, .bi-arrow-down {
+    width: 15em; /* Adjust icon size */
+    height: 15em;
+    vertical-align: -0.200em; /* Adjust vertical alignment */
+}
+
+.col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12 {
+    margin-top: 10px;
+}
+
+.btn-custom {
+    border-radius: 0;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #ccc;
+}
+
+.row-image {
+    width: 100px;
+}
+
+.form-field {
+    width: 250px;
+    display: inline-block;
+    padding: 5px;
+}
+
+.cart-row {
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+}
+
+.quantity {
+    display: inline-block;
+    font-weight: 700;
+    padding-right: 10px;
+}
+
+.chg-quantity {
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 5px;
+    transition: transform 0.3s ease;
+    perspective: 1000px;
+}
+
+.chg-quantity:hover {
+    transform: rotateY(180deg);
+}
+
+.chg-quantity .inner {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.chg-quantity .front, .chg-quantity .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.chg-quantity .front {
+    background-color: #ccc;
+}
+
+.chg-quantity .back {
+    transform: rotateY(180deg);
+    background-color: #4f868c;
+    color: #fff;
+}

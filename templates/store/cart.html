@@ -1,0 +1,102 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box-element">
+            <a class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; Continue Shopping</a>
+            <br><br>
+            <table class="table">
+                <tr>
+                    <th>
+                        <h5>Items: <strong>{{ order.get_cart_items }}</strong></h5>
+                    </th>
+                    <th>
+                        <h5>Total: <strong>₹{{ order.get_cart_total|floatformat:2 }}</strong></h5>
+                    </th>
+                    <th>
+                        <a style="float:right; margin:5px;" class="btn btn-primary" href="{% url 'checkout' %}">Checkout</a>
+                    </th>
+                </tr>
+            </table>
+        </div>
+
+        <br>
+        <div class="box-element">
+            <div class="cart-row header">
+                <div style="flex:2"></div>
+                <div style="flex:2"><strong>Item</strong></div>
+                <div style="flex:1"><strong>Price</strong></div>
+                <div style="flex:1"><strong>Quantity</strong></div>
+                <div style="flex:1"><strong>Total</strong></div>
+            </div>
+            {% for item in items %}
+            <div class="cart-row">
+                <div style="flex:2"><img class="row-image" src="{{ item.product.imageURL }}"></div>
+                <div style="flex:2"><p>{{ item.product.name }}</p></div>
+                <div style="flex:1"><p>₹{{ item.product.price|floatformat:2 }}</p></div>
+                <div style="flex:1">
+                    <div class="quantity">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up update-cart" data-product="{{ item.product.id }}" data-action="add" viewBox="0 0 16 16">
+        <path d="M8.646 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.707 5.354 9.854a.5.5 0 0 1-.708-.708l3-3z"/>
+        <path d="M8.5 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V1.5a.5.5 0 0 1 .5-.5z"/>
+    </svg>
+    <span class="quantity-number">{{ item.quantity }}</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down update-cart" data-product="{{ item.product.id }}" data-action="remove" viewBox="0 0 16 16">
+        <path d="M8.646 11.354a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 13.293l-3.146 3.146a.5.5 0 0 1-.708-.708l3-3z"/>
+        <path d="M8.5 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V1.5a.5.5 0 0 1 .5-.5z"/>
+    </svg>
+</div>
+
+                </div>
+                <div style="flex:1"><p>₹{{ item.get_total|floatformat:2 }}</p></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const updateBtns = document.querySelectorAll('.update-cart');
+
+        updateBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const productId = this.dataset.product;
+                const action = this.dataset.action;
+                updateUserOrder(productId, action);
+            });
+        });
+
+        function updateUserOrder(productId, action) {
+            const url = '/update_item/';
+            const csrftoken = getCookie('csrftoken');
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({
+                    'productId': productId,
+                    'action': action
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function getCookie(name) {
+            const cookieValue = document.cookie.split(';').find(cookie => cookie.trim().startsWith(name + '='));
+            return cookieValue ? decodeURIComponent(cookieValue.split('=')[1]) : null;
+        }
+    });
+</script>
+{% endblock %}
